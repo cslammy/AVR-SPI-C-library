@@ -60,7 +60,7 @@ if (mode == 2)
 	SPCR |= (1 << CPOL);
 	SPCR |= (0 << CPHA);
 	}
-if (mode == 2)
+if (mode == 3)
 	{
 	SPCR |= (1 << CPOL);
 	SPCR |= (1 << CPHA);
