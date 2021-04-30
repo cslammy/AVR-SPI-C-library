@@ -52,13 +52,13 @@ void spi_mode(unsigned char mode)
 {
 if (mode == 1)
 	{
-	SPCR |= (0 << CPOL);
+	SPCR &= ~(1 << CPOL);
 	SPCR |= (1 << CPHA);
 	}
 if (mode == 2)
 	{
 	SPCR |= (1 << CPOL);
-	SPCR |= (0 << CPHA);
+	SPCR &= ~(1 << CPHA);
 	}
 if (mode == 3)
 	{
@@ -67,8 +67,8 @@ if (mode == 3)
 	}
 else
 		{
-    	SPCR |= (0 << CPOL);
-    	SPCR |= (0 << CPHA);	
+    	SPCR &= ~(1 << CPOL);
+    	SPCR &= ~(1 << CPHA);	
 		}
 	
 }
