@@ -40,9 +40,9 @@ void init_spi_master(void)
 	
 	/* SPI Master mode */
 	SPCR |= (1 << MSTR);
-	/* Set clock speed (8MHz oscillator / 32 = 250kHz) */
-	SPCR |= (1 << SPR1);
-	SPSR |= (1 << SPI2X);
+	// Set clock speed (16Mhz osc 0,1 = 1Mhz *  0,0 is 4Mhz/
+	SPCR &= ~(1 << SPR0);
+	SPCR &= ~(1 << SPR1);
 	/* SPI Enable */
 	SPCR |= (1 << SPE);
 }
