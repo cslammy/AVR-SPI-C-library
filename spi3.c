@@ -26,7 +26,7 @@ use:
 
 #include <avr/io.h>
 #include "spi3.h"
-
+#include <stdint.h>
 
 
 void init_spi_master(void)
@@ -40,25 +40,25 @@ void init_spi_master(void)
 	
 	/* SPI Master mode */
 	SPCR |= (1 << MSTR);
-	// Set clock speed (16Mhz osc 0,1 = 1Mhz *  0,0 is 4Mhz/
-	SPCR &= ~(1 << SPR0);
-	SPCR &= ~(1 << SPR1);
+	/* Set clock speed (8MHz oscillator / 32 = 250kHz) */
+	SPCR |= (1 << SPR1);
+	SPSR |= (1 << SPI2X);
 	/* SPI Enable */
 	SPCR |= (1 << SPE);
 }
 
 
-void spi_mode(unsigned char mode)
+void spi_mode(uint8_t mode)
 {
 if (mode == 1)
 	{
-	SPCR &= ~(1 << CPOL);
+	SPCR |= (0 << CPOL);
 	SPCR |= (1 << CPHA);
 	}
 if (mode == 2)
 	{
 	SPCR |= (1 << CPOL);
-	SPCR &= ~(1 << CPHA);
+	SPCR |= (0 << CPHA);
 	}
 if (mode == 3)
 	{
@@ -67,8 +67,8 @@ if (mode == 3)
 	}
 else
 		{
-    	SPCR &= ~(1 << CPOL);
-    	SPCR &= ~(1 << CPHA);	
+    	SPCR |= (0 << CPOL);
+    	SPCR |= (0 << CPHA);	
 		}
 	
 }
@@ -93,3 +93,16 @@ else
 
  }
 
+ 
+uint8_t SPI_TransferTx16_SingleCS(unsigned char a, unsigned char b)
+ {
+	 unsigned char x;
+	 SELECT();
+	 x = SPI_Transfer(a);
+	 x = SPI_Transfer(b);
+	 DESELECT();
+	 return x;
+
+ }
+ 
+     

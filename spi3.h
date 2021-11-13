@@ -44,6 +44,8 @@ void spi_mode(unsigned char mode);
 
 uint8_t SPI_Transfer(uint8_t data);
 
- uint8_t SPI_TransferTx16(unsigned char a, unsigned char b);
+uint8_t SPI_TransferTx16(unsigned char a, unsigned char b);
+
+uint8_t SPI_TransferTx16_SingleCS(unsigned char a, unsigned char b);
 
 #endif /* SPI_H_ */
